@@ -26,7 +26,6 @@
       align-items: center;
     }
 
-    /* Header / badge */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -46,7 +45,6 @@
       background: #dc2626;
     }
 
-    /* Headline */
     h1 {
       font-size: 36px;
       line-height: 1.15;
@@ -57,7 +55,6 @@
       margin-bottom: 16px;
     }
     .highlight { color: #dc2626; }
-
     .subheadline {
       font-size: 17px;
       line-height: 1.6;
@@ -67,7 +64,7 @@
       margin-bottom: 48px;
     }
 
-    /* Video section */
+    /* Video wrapper */
     .video-wrapper {
       width: 100%;
       position: relative;
@@ -75,47 +72,95 @@
       overflow: hidden;
       background: #f9fafb;
       border: 1px solid #e5e7eb;
-      margin-bottom: 48px;
+      margin-bottom: 16px;
     }
-    .video-placeholder {
+    .video-wrapper video {
       width: 100%;
-      aspect-ratio: 16/9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: linear-gradient(135deg, #fef2f2 0%, #fff1f1 100%);
-      cursor: pointer;
-      transition: background 0.3s;
+      display: block;
     }
-    .video-placeholder:hover { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); }
-    .play-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: rgba(220, 38, 38, 0.1);
-      border: 2px solid rgba(220, 38, 38, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-    .play-icon svg { width: 24px; height: 24px; fill: #dc2626; margin-left: 2px; }
-    .video-placeholder:hover .play-icon {
-      background: rgba(220, 38, 38, 0.15);
-      border-color: #dc2626;
-      transform: scale(1.05);
-    }
-    .video-label {
-      font-size: 15px;
-      color: #dc2626;
-    }
-    .video-ready { display: none; width: 100%; }
-    .video-ready.show { display: block; }
-    .video-ready video { width: 100%; display: block; }
 
-    /* CTA Button (hidden by default, shown on video end) */
+    /* Video controls bar */
+    .video-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 640px;
+      margin-bottom: 48px;
+      padding: 0 4px;
+    }
+    .play-btn {
+      all: unset;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #dc2626;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .play-btn:hover { background: #b91c1c; }
+
+    /* Progress bar (read-only, shows progress but can't seek back) */
+    .progress-wrap {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: #e5e7eb;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: #dc2626;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .time-display {
+      font-size: 12px;
+      color: #6b7280;
+      font-variant-numeric: tabular-nums;
+      min-width: 70px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Speed selector */
+    .speed-btn {
+      all: unset;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      padding: 4px 8px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .speed-btn:hover { border-color: #dc2626; color: #dc2626; }
+    .speed-btn.active { background: #dc2626; color: #fff; border-color: #dc2626; }
+
+    /* Status indicator */
+    .video-status {
+      font-size: 13px;
+      color: #6b7280;
+      text-align: center;
+      margin-bottom: 16px;
+      min-height: 20px;
+    }
+    .video-status.done { color: #16a34a; font-weight: 600; }
+    .video-status.error { color: #dc2626; font-weight: 600; }
+
+    /* CTA */
     .cta-section {
       width: 100%;
       max-width: 400px;
@@ -137,7 +182,6 @@
     }
     .cta-button:hover { background: #b91c1c; transform: translateY(-1px); }
     .cta-button.show { display: inline-block; }
-
     .cta-sub {
       font-size: 14px;
       color: #9ca3af;
@@ -163,75 +207,24 @@
       gap: 48px;
       flex-wrap: wrap;
     }
-    .stat-number {
-      font-size: 28px;
-      font-weight: 700;
-      color: #dc2626;
-    }
-    .stat-label {
-      font-size: 13px;
-      color: #6b7280;
-      margin-top: 4px;
-    }
-
-    /* How it works */
-    .how-section {
-      width: 100%;
-      margin-top: 80px;
-    }
-    .how-title {
-      font-size: 22px;
-      font-weight: 600;
-      text-align: center;
-      color: #1a1a1a;
-      margin-bottom: 32px;
-    }
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+    .stat-number { font-size: 28px; font-weight: 700; color: #dc2626; }
+    .stat-label { font-size: 13px; color: #6b7280; margin-top: 4px; }
+    .how-section { width: 100%; margin-top: 80px; }
+    .how-title { font-size: 22px; font-weight: 600; text-align: center; color: #1a1a1a; margin-bottom: 32px; }
+    .steps { display: flex; flex-direction: column; gap: 20px; }
     .step {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      padding: 20px;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px;
     }
     .step-num {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(220, 38, 38, 0.1);
-      color: #dc2626;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 14px;
-      flex-shrink: 0;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(220, 38, 38, 0.1); color: #dc2626;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; font-size: 14px; flex-shrink: 0;
     }
-    .step-text h3 {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 4px;
-    }
-    .step-text p {
-      font-size: 14px;
-      color: #6b7280;
-      line-height: 1.5;
-    }
-
-    /* Footer */
-    .footer {
-      margin-top: 80px;
-      text-align: center;
-      font-size: 13px;
-      color: #9ca3af;
-    }
+    .step-text h3 { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+    .step-text p { font-size: 14px; color: #6b7280; line-height: 1.5; }
+    .footer { margin-top: 80px; text-align: center; font-size: 13px; color: #9ca3af; }
 
     @media (max-width: 480px) {
       .container { padding: 32px 16px 64px; }
@@ -245,7 +238,7 @@
   <div class="container">
     <div class="badge">
       <span class="badge-dot"></span>
-      MOM AI Technologies — HVAC Receptionist
+      MOM AI Technologies &mdash; HVAC Receptionist
     </div>
 
     <h1>
@@ -258,27 +251,27 @@
 
     <!-- Video Section -->
     <div class="video-wrapper">
-      <!-- Placeholder before VSL is ready -->
-      <div class="video-placeholder" id="videoPlaceholder">
-        <div class="play-icon">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <span class="video-label">Watch the 5-minute demo</span>
-      </div>
-
-      <!-- Actual video (hidden until ready) -->
-      <div class="video-ready" id="videoReady">
-        <!-- Replace src with your VSL video URL when ready -->
-        <video id="vslVideo" preload="metadata" playsinline>
-          <source src="" type="video/mp4">
-        </video>
-      </div>
+      <video id="demoVideo" preload="auto" playsinline>
+        <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4" type="video/mp4">
+      </video>
     </div>
+
+    <!-- Custom controls bar -->
+    <div class="video-controls">
+      <button class="play-btn" id="playBtn" aria-label="Play">&#9654;</button>
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="time-display" id="timeDisplay">0:00 / 0:10</span>
+      <button class="speed-btn" id="speedBtn">1x</button>
+    </div>
+
+    <div class="video-status" id="videoStatus">Watch the demo to unlock your consultation.</div>
 
     <!-- CTA -->
     <div class="cta-section">
       <a href="#" class="cta-button" id="ctaButton" target="_blank">
-        Book a Free Consultation →
+        Book a Free Consultation &rarr;
       </a>
       <p class="cta-sub">No commitment. See how it works for your business.</p>
     </div>
@@ -287,18 +280,9 @@
     <div class="proof">
       <div class="proof-label">Trusted by HVAC businesses across the US</div>
       <div class="proof-stats">
-        <div>
-          <div class="stat-number">2,400+</div>
-          <div class="stat-label">Calls handled</div>
-        </div>
-        <div>
-          <div class="stat-number">$180+</div>
-          <div class="stat-label">Avg. job per call</div>
-        </div>
-        <div>
-          <div class="stat-number">97%</div>
-          <div class="stat-label">Call answered rate</div>
-        </div>
+        <div><div class="stat-number">2,400+</div><div class="stat-label">Calls handled</div></div>
+        <div><div class="stat-number">$180+</div><div class="stat-label">Avg. job per call</div></div>
+        <div><div class="stat-number">97%</div><div class="stat-label">Call answered rate</div></div>
       </div>
     </div>
 
@@ -310,14 +294,14 @@
           <div class="step-num">1</div>
           <div class="step-text">
             <h3>Customer calls your number</h3>
-            <p>Your AI receptionist answers before the first ring ends — 24/7, weekends, holidays.</p>
+            <p>Your AI receptionist answers before the first ring ends &mdash; 24/7, weekends, holidays.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-text">
             <h3>Natural conversation handles the job</h3>
-            <p>It listens, understands the issue, provides a quote, and books a service time — all in natural English.</p>
+            <p>It listens, understands the issue, provides a quote, and books a service time &mdash; all in natural English.</p>
           </div>
         </div>
         <div class="step">
@@ -336,22 +320,148 @@
   </div>
 
   <script>
-    // When VSL is ready, uncomment and update the src:
-    // const vid = document.getElementById('vslVideo');
-    // vid.src = 'https://your-video-url.mp4';
-    // document.getElementById('videoPlaceholder').style.display = 'none';
-    // document.getElementById('videoReady').classList.add('show');
-    // vid.addEventListener('ended', () => {
-    //   document.getElementById('ctaButton').classList.add('show');
-    // });
-    //
-    // For now, clicking placeholder shows CTA (demo mode)
-    document.getElementById('videoPlaceholder').addEventListener('click', function() {
-      document.getElementById('ctaButton').classList.add('show');
-      this.innerHTML = '<div style="padding:40px;text-align:center;color:#9ca3af;font-size:14px;">' +
-        'Video placeholder — replace with your VSL when ready.<br>' +
-        '<span style="font-size:12px;margin-top:8px;display:block;">The CTA appears automatically when the video ends.</span></div>';
-    });
+    (function() {
+      const video = document.getElementById('demoVideo');
+      const playBtn = document.getElementById('playBtn');
+      const progressFill = document.getElementById('progressFill');
+      const timeDisplay = document.getElementById('timeDisplay');
+      const speedBtn = document.getElementById('speedBtn');
+      const videoStatus = document.getElementById('videoStatus');
+      const ctaButton = document.getElementById('ctaButton');
+
+      let lastTime = 0;
+      let hasEnded = false;
+
+      // Speed cycle: 1x -> 1.5x -> 2x -> 1x
+      const SPEEDS = [1, 1.5, 2];
+      let speedIdx = 0;
+
+      function formatTime(s) {
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60);
+        return m + ':' + String(sec).padStart(2, '0');
+      }
+
+      function updateProgress() {
+        if (video.duration) {
+          const pct = (video.currentTime / video.duration) * 100;
+          progressFill.style.width = pct + '%';
+          timeDisplay.textContent = formatTime(video.currentTime) + ' / ' + formatTime(video.duration);
+        }
+      }
+
+      // ── Prevent seeking backward ──
+      video.addEventListener('seeking', function() {
+        // If trying to go backward (earlier than last known position)
+        if (video.currentTime < lastTime && !hasEnded) {
+          video.currentTime = lastTime;
+        }
+      });
+
+      video.addEventListener('timeupdate', function() {
+        // Track the furthest point reached (allow forward only)
+        if (video.currentTime > lastTime) {
+          lastTime = video.currentTime;
+        }
+        updateProgress();
+      });
+
+      // ── On video end, show CTA ──
+      video.addEventListener('ended', function() {
+        hasEnded = true;
+        playBtn.textContent = '\u21BB';
+        videoStatus.textContent = '\u2713 Demo completed. Your consultation is ready!';
+        videoStatus.className = 'video-status done';
+        ctaButton.classList.add('show');
+      });
+
+      // ── Play / Pause toggle ──
+      playBtn.addEventListener('click', function() {
+        if (hasEnded) {
+          // Restart from beginning
+          hasEnded = false;
+          lastTime = 0;
+          ctaButton.classList.remove('show');
+          videoStatus.textContent = 'Watching again...';
+          videoStatus.className = 'video-status';
+          video.currentTime = 0;
+          video.play();
+          playBtn.textContent = '\u275A\u275A';
+          return;
+        }
+        if (video.paused) {
+          video.play();
+          playBtn.textContent = '\u275A\u275A';
+        } else {
+          video.pause();
+          playBtn.textContent = '\u25B6';
+        }
+      });
+
+      // ── Speed toggle ──
+      speedBtn.addEventListener('click', function() {
+        speedIdx = (speedIdx + 1) % SPEEDS.length;
+        const speed = SPEEDS[speedIdx];
+        video.playbackRate = speed;
+        speedBtn.textContent = speed + 'x';
+        // Highlight active speed
+        document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+        speedBtn.classList.add('active');
+      });
+      speedBtn.classList.add('active'); // 1x is default active
+
+      // ── Progress bar: allow clicking to seek FORWARD only ──
+      const progressWrap = document.getElementById('progressWrap');
+      progressWrap.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const pct = (e.clientX - rect.left) / rect.width;
+        const targetTime = pct * video.duration;
+        // Only allow seeking forward (ahead of lastTime)
+        if (targetTime > lastTime + 0.5) {
+          video.currentTime = targetTime;
+          lastTime = targetTime;
+        }
+      });
+
+      // ── Keyboard controls: space = play/pause, arrows = forward only ──
+      document.addEventListener('keydown', function(e) {
+        // Only if no input is focused
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.code === 'Space') {
+          e.preventDefault();
+          playBtn.click();
+        }
+        if (e.code === 'ArrowRight') {
+          e.preventDefault();
+          const targetTime = Math.min(video.currentTime + 5, video.duration);
+          if (targetTime > lastTime) {
+            video.currentTime = targetTime;
+            lastTime = targetTime;
+          }
+        }
+        // ArrowLeft is intentionally disabled (no rewind)
+      });
+
+      // ── Init ──
+      updateProgress();
+
+      // If video loads new source, reset
+      video.addEventListener('loadedmetadata', function() {
+        timeDisplay.textContent = '0:00 / ' + formatTime(video.duration);
+        lastTime = 0;
+        hasEnded = false;
+        ctaButton.classList.remove('show');
+        videoStatus.textContent = 'Watch the demo to unlock your consultation.';
+        videoStatus.className = 'video-status';
+      });
+
+      // Handle video errors
+      video.addEventListener('error', function() {
+        videoStatus.textContent = 'Video failed to load. Please refresh.';
+        videoStatus.className = 'video-status error';
+      });
+    })();
   </script>
 </body>
 </html>
