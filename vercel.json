@@ -1,6 +1,5 @@
 {
   "name": "hvac-landing",
   "version": 2,
-  "framework": null,
-  "public": true
+  "framework": null
 }
