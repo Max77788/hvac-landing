@@ -350,16 +350,17 @@
         }
       }
 
-      // ── Prevent seeking backward ──
+      // ── Prevent seeking beyond furthest point watched ──
       video.addEventListener('seeking', function() {
-        // If trying to go backward (earlier than last known position)
-        if (video.currentTime < lastTime && !hasEnded) {
+        // Allow rewinding anywhere within already-watched territory
+        // Only block if trying to skip forward past lastTime
+        if (video.currentTime > lastTime && !hasEnded) {
           video.currentTime = lastTime;
         }
       });
 
       video.addEventListener('timeupdate', function() {
-        // Track the furthest point reached (allow forward only)
+        // Track the furthest point reached
         if (video.currentTime > lastTime) {
           lastTime = video.currentTime;
         }
@@ -410,16 +411,16 @@
       });
       speedBtn.classList.add('active'); // 1x is default active
 
-      // ── Progress bar: allow clicking to seek FORWARD only ──
+      // ── Progress bar: click to seek anywhere within watched territory ──
       const progressWrap = document.getElementById('progressWrap');
       progressWrap.addEventListener('click', function(e) {
         const rect = this.getBoundingClientRect();
         const pct = (e.clientX - rect.left) / rect.width;
         const targetTime = pct * video.duration;
-        // Only allow seeking forward (ahead of lastTime)
-        if (targetTime > lastTime + 0.5) {
+        // Allow clicking anywhere up to lastTime (watched territory)
+        // Block clicks beyond lastTime (unwatched)
+        if (targetTime <= lastTime + 0.5) {
           video.currentTime = targetTime;
-          lastTime = targetTime;
         }
       });
 
