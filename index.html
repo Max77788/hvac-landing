@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Never Miss Another $1,000+ Call | AI Receptionist for HVAC</title>
+  <meta name="description" content="AI-powered receptionist for HVAC businesses. Answer every call 24/7, book appointments automatically, and never lose a lead after hours.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0b;
+      color: #e4e4e7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 640px;
+      padding: 48px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Header / badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #a1a1aa;
+      margin-bottom: 32px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    /* Headline */
+    h1 {
+      font-size: 36px;
+      line-height: 1.15;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .highlight { color: #60a5fa; }
+
+    .subheadline {
+      font-size: 17px;
+      line-height: 1.6;
+      text-align: center;
+      color: #a1a1aa;
+      max-width: 500px;
+      margin-bottom: 48px;
+    }
+
+    /* Video section */
+    .video-wrapper {
+      width: 100%;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #141416;
+      border: 1px solid #1f1f23;
+      margin-bottom: 48px;
+    }
+    .video-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: linear-gradient(135deg, #141416 0%, #1a1a2e 100%);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .video-placeholder:hover { background: linear-gradient(135deg, #1a1a2e 0%, #222244 100%); }
+    .play-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(96, 165, 250, 0.2);
+      border: 2px solid rgba(96, 165, 250, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .play-icon svg { width: 24px; height: 24px; fill: #60a5fa; margin-left: 2px; }
+    .video-placeholder:hover .play-icon {
+      background: rgba(96, 165, 250, 0.3);
+      border-color: #60a5fa;
+      transform: scale(1.05);
+    }
+    .video-label {
+      font-size: 15px;
+      color: #71717a;
+    }
+    .video-ready { display: none; width: 100%; }
+    .video-ready.show { display: block; }
+    .video-ready video { width: 100%; display: block; }
+
+    /* CTA Button (hidden by default, shown on video end) */
+    .cta-section {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .cta-button {
+      display: none;
+      width: 100%;
+      padding: 16px 32px;
+      background: #60a5fa;
+      color: #0a0a0b;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .cta-button:hover { background: #93bbfd; transform: translateY(-1px); }
+    .cta-button.show { display: inline-block; }
+
+    .cta-sub {
+      font-size: 14px;
+      color: #71717a;
+      margin-top: 12px;
+    }
+
+    /* Social proof */
+    .proof {
+      width: 100%;
+      margin-top: 80px;
+      text-align: center;
+    }
+    .proof-label {
+      font-size: 13px;
+      color: #52525b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 24px;
+    }
+    .proof-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .stat-number {
+      font-size: 28px;
+      font-weight: 700;
+      color: #e4e4e7;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: #71717a;
+      margin-top: 4px;
+    }
+
+    /* How it works */
+    .how-section {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .how-title {
+      font-size: 22px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px;
+      background: #141416;
+      border: 1px solid #1f1f23;
+      border-radius: 12px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .step-text h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .step-text p {
+      font-size: 14px;
+      color: #a1a1aa;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      font-size: 13px;
+      color: #52525b;
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 32px 16px 64px; }
+      h1 { font-size: 28px; }
+      .subheadline { font-size: 15px; }
+      .proof-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      MOM AI Technologies — HVAC Receptionist
+    </div>
+
+    <h1>
+      Never Miss Another<br>
+      <span class="highlight">$1,000+ Call</span> Again
+    </h1>
+    <p class="subheadline">
+      Your AI receptionist answers every call 24/7, books appointments automatically, and makes sure you never lose a high-value lead after hours.
+    </p>
+
+    <!-- Video Section -->
+    <div class="video-wrapper">
+      <!-- Placeholder before VSL is ready -->
+      <div class="video-placeholder" id="videoPlaceholder">
+        <div class="play-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <span class="video-label">Watch the 5-minute demo</span>
+      </div>
+
+      <!-- Actual video (hidden until ready) -->
+      <div class="video-ready" id="videoReady">
+        <!-- Replace src with your VSL video URL when ready -->
+        <video id="vslVideo" preload="metadata" playsinline>
+          <source src="" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <a href="#" class="cta-button" id="ctaButton" target="_blank">
+        Book a Free Consultation →
+      </a>
+      <p class="cta-sub">No commitment. See how it works for your business.</p>
+    </div>
+
+    <!-- Social Proof -->
+    <div class="proof">
+      <div class="proof-label">Trusted by HVAC businesses across the US</div>
+      <div class="proof-stats">
+        <div>
+          <div class="stat-number">2,400+</div>
+          <div class="stat-label">Calls handled</div>
+        </div>
+        <div>
+          <div class="stat-number">$180+</div>
+          <div class="stat-label">Avg. job per call</div>
+        </div>
+        <div>
+          <div class="stat-number">97%</div>
+          <div class="stat-label">Call answered rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="how-section">
+      <div class="how-title">How It Works</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <h3>Customer calls your number</h3>
+            <p>Your AI receptionist answers before the first ring ends — 24/7, weekends, holidays.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <h3>Natural conversation handles the job</h3>
+            <p>It listens, understands the issue, provides a quote, and books a service time — all in natural English.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <h3>Appointment lands in your calendar</h3>
+            <p>Scheduled jobs sync with your existing system. You just show up and work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      MOM AI Technologies &copy; 2026
+    </div>
+  </div>
+
+  <script>
+    // When VSL is ready, uncomment and update the src:
+    // const vid = document.getElementById('vslVideo');
+    // vid.src = 'https://your-video-url.mp4';
+    // document.getElementById('videoPlaceholder').style.display = 'none';
+    // document.getElementById('videoReady').classList.add('show');
+    // vid.addEventListener('ended', () => {
+    //   document.getElementById('ctaButton').classList.add('show');
+    // });
+    //
+    // For now, clicking placeholder shows CTA (demo mode)
+    document.getElementById('videoPlaceholder').addEventListener('click', function() {
+      document.getElementById('ctaButton').classList.add('show');
+      this.innerHTML = '<div style="padding:40px;text-align:center;color:#71717a;font-size:14px;">' +
+        'Video placeholder — replace with your VSL when ready.<br>' +
+        '<span style="font-size:12px;margin-top:8px;display:block;">The CTA appears automatically when the video ends.</span></div>';
+    });
+  </script>
+</body>
+</html>
