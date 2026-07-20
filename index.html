@@ -226,6 +226,23 @@
     .step-text p { font-size: 14px; color: #6b7280; line-height: 1.5; }
     .footer { margin-top: 80px; text-align: center; font-size: 13px; color: #9ca3af; }
 
+    /* Demo banner */
+    .demo-banner {
+      width: 100%;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #991b1b;
+      line-height: 1.4;
+    }
+    .demo-banner .icon { font-size: 18px; flex-shrink: 0; }
+
     @media (max-width: 480px) {
       .container { padding: 32px 16px 64px; }
       h1 { font-size: 28px; }
@@ -241,6 +258,11 @@
       MOM AI Technologies &mdash; HVAC Receptionist
     </div>
 
+    <div class="demo-banner">
+      <span class="icon">🎥</span>
+      <span>Watch the quick demo below to unlock your free consultation booking.</span>
+    </div>
+
     <h1>
       Never Miss an <span class="highlight">HVAC Emergency</span><br>
       or <span class="highlight">$1,000+ AC Repair</span> Again
@@ -252,7 +274,7 @@
     <!-- Video Section -->
     <div class="video-wrapper">
       <video id="demoVideo" preload="auto" playsinline>
-        <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4" type="video/mp4">
+        <source src="https://storage.googleapis.com/generic-bucket-777/hvac_vsl_v2.mp4" type="video/mp4">
       </video>
     </div>
 
