@@ -399,9 +399,8 @@
       });
 
       // ── Play / Pause toggle ──
-      playBtn.addEventListener('click', function() {
+      function togglePlay() {
         if (hasEnded) {
-          // Restart from beginning
           hasEnded = false;
           lastTime = 0;
           ctaButton.classList.remove('show');
@@ -419,7 +418,12 @@
           video.pause();
           playBtn.textContent = '\u25B6';
         }
-      });
+      }
+
+      playBtn.addEventListener('click', togglePlay);
+
+      // ── Click video itself to play/pause ──
+      video.addEventListener('click', togglePlay);
 
       // ── Speed toggle ──
       speedBtn.addEventListener('click', function() {
