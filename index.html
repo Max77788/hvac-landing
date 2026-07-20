@@ -273,7 +273,7 @@
 
     <!-- Video Section -->
     <div class="video-wrapper">
-      <video id="demoVideo" preload="auto" playsinline>
+      <video id="demoVideo" preload="auto" playsinline autoplay>
         <source src="https://storage.googleapis.com/generic-bucket-777/hvac_vsl_v2.mp4" type="video/mp4">
       </video>
     </div>
@@ -469,7 +469,7 @@
       // ── Init ──
       updateProgress();
 
-      // If video loads new source, reset
+      // If video loads new source, reset and attempt autoplay
       video.addEventListener('loadedmetadata', function() {
         timeDisplay.textContent = '0:00 / ' + formatTime(video.duration);
         lastTime = 0;
@@ -477,6 +477,13 @@
         ctaButton.classList.remove('show');
         videoStatus.textContent = 'Watch the demo to unlock your consultation.';
         videoStatus.className = 'video-status';
+        
+        // Attempt autoplay — if blocked, button stays as play
+        video.play().then(function() {
+          playBtn.textContent = '\u275A\u275A';
+        }).catch(function() {
+          // Autoplay blocked — user must tap play
+        });
       });
 
       // Handle video errors
